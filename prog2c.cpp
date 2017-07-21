@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 
-double C256 (double d)
+inline double C256 (double d)
 {
   return  d / 255;
 }
@@ -36,7 +36,7 @@ GLdouble normal[][3] = {
 };
 
 GLdouble color[][3] = {
-  { 0.7176, 0.1568, 0.1803 }, /* 茜色 */
+  { C256(180), 0.1568, 0.1803 }, /* 茜色 */
   { 0.7647, 0.8470, 0.1450 }, /* 若草色 */
   { 0.1647, 0.5137, 0.6352 }, /* 花浅葱 */
   { 0.0000, 0.9254, 0.2784 }, /* 菜の花色 */

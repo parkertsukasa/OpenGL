@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 
-double C256 (double d)
+inline double C256 (double d)
 {
   return  d / 255;
 }
@@ -18,12 +18,12 @@ GLdouble vertex[][3] = {
 };
 
 int face[][4] = {
-  { 0, 1, 2, 3 }, /* A-B-C-D ã‚’çµã¶é¢ */
-  { 1, 5, 6, 2 }, /* B-F-G-C ã‚’çµã¶é¢ */
-  { 5, 4, 7, 6 }, /* F-E-H-G ã‚’çµã¶é¢ */
-  { 4, 0, 3, 7 }, /* E-A-D-H ã‚’çµã¶é¢ */
-  { 4, 5, 1, 0 }, /* E-F-B-A ã‚’çµã¶é¢ */
-  { 3, 2, 6, 7 }  /* D-C-G-H ã‚’çµã¶é¢ */
+  { 0, 1, 2, 3 }, /* A-B-C-D ’¤ò’·ë’¤Ö’ÌÌ */
+  { 1, 5, 6, 2 }, /* B-F-G-C ’¤ò’·ë’¤Ö’ÌÌ */
+  { 5, 4, 7, 6 }, /* F-E-H-G ’¤ò’·ë’¤Ö’ÌÌ */
+  { 4, 0, 3, 7 }, /* E-A-D-H ’¤ò’·ë’¤Ö’ÌÌ */
+  { 4, 5, 1, 0 }, /* E-F-B-A ’¤ò’·ë’¤Ö’ÌÌ */
+  { 3, 2, 6, 7 }  /* D-C-G-H ’¤ò’·ë’¤Ö’ÌÌ */
 };
 
 GLdouble normal[][3] = {
@@ -36,12 +36,12 @@ GLdouble normal[][3] = {
 };
 
 GLdouble color[][3] = {
-  { 0.7176, 0.1568, 0.1803 }, /* èŒœè‰² */
-  { 0.7647, 0.8470, 0.1450 }, /* è‹¥è‰è‰² */
-  { 0.1647, 0.5137, 0.6352 }, /* èŠ±æµ…è‘± */
-  { 0.0000, 0.9254, 0.2784 }, /* èœã®èŠ±è‰² */
-  { 0.8039, 0.5490, 0.3607 }, /* æ±Ÿæˆ¸èŒ¶ */
-  { 0.6159, 0.3569, 0.5451 }, /* äº¬ç´« */
+  { C256(180), 0.1568, 0.1803 }, /* ’°«’¿§ */
+  { 0.7647, 0.8470, 0.1450 }, /* ’¼ã’Áğ’¿§ */
+  { 0.1647, 0.5137, 0.6352 }, /* ’²Ö’Àõ’Ç¬ */
+  { 0.0000, 0.9254, 0.2784 }, /* ’ºÚ’¤Î’²Ö’¿§ */
+  { 0.8039, 0.5490, 0.3607 }, /* ’¹¾’¸Í’Ãã */
+  { 0.6159, 0.3569, 0.5451 }, /* ’µş’»ç */
 };
 
 int edge[][2] = {
@@ -62,8 +62,8 @@ int edge[][2] = {
 GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
 GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
 
-GLfloat green[] = { 0.7647, 0.8470, 0.1450 }; /* è‹¥è‰è‰² */
-GLfloat red[] =  { 0.7176, 0.1568, 0.1803 }; /* èŒœè‰² */
+GLfloat green[] = { 0.7647, 0.8470, 0.1450 }; /* ’¼ã’Áğ’¿§ */
+GLfloat red[] =  { 0.7176, 0.1568, 0.1803 }; /* ’°«’¿§ */
 
 void idle(void)
 {
@@ -75,27 +75,27 @@ void display(void)
   int i;
   int j;
 
-  static int r = 0; /* å›è»¢è§’ */
+  static int r = 0; /* ’²ó’Å¾’³Ñ */
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glLoadIdentity();
 
-  /* è¦–ç‚¹ä½ç½®ã¨è¦–ç·šæ–¹å‘ */
+  /* ’»ë’ÅÀ’°Ì’ÃÖ’¤È’»ë’Àş’Êı’¸ş */
   gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-  /* å…‰æºã®ä½ç½®è¨­å®š */
+  /* ’¸÷’¸»’¤Î’°Ì’ÃÖ’Àß’Äê */
   glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
   glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
 
 
-  /* å›³å½¢ã®å›è»¢ */
+  /* ’¿Ş’·Á’¤Î’²ó’Å¾ */
   glRotated((double)r, 0.0, 1.0, 0.0);
 
-  /* å›³å½¢ã®è‰²ï¼ˆèŒœè‰²ï¼‰ */
+  /* ’¿Ş’·Á’¤Î’¿§’¡Ê’°«’¿§’¡Ë */
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, red);
 
-  /* å›³å½¢ã®æç”» */
+  /* ’¿Ş’·Á’¤Î’ÉÁ’²è */
   glColor3d(0.0, 0.0, 0.0);
   glBegin(GL_QUADS);
   for (j = 0; j < 6; ++j) {
@@ -108,7 +108,7 @@ void display(void)
 
   glutSwapBuffers();
 
-  /* 1é€±å›ã£ãŸã‚‰å›è»¢ãƒªã‚»ãƒƒãƒˆ */
+  /* 1’½µ’²ó’¤Ã’¤¿’¤é’²ó’Å¾’¥ê’¥»’¥Ã’¥È */
   if (++r >= 360) r = 0;
 }
 
@@ -116,13 +116,13 @@ void resize(int w, int h)
 {
   glViewport(0, 0, w, h);
 
-  /* é€è¦–å¤‰æ›è¡Œåˆ—ã®è¨­å®š */
+  /* ’Æ©’»ë’ÊÑ’´¹’¹Ô’Îó’¤Î’Àß’Äê */
   glMatrixMode(GL_PROJECTION);
 
   glLoadIdentity();
   gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);
   
-  /* ãƒ¢ãƒ‡ãƒ«ãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—ã®è¨­å®š */
+  /* ’¥â’¥Ç’¥ë’¥Ó’¥å’¡¼’ÊÑ’´¹’¹Ô’Îó’¤Î’Àß’Äê */
   glMatrixMode(GL_MODELVIEW);
 }
 
@@ -131,16 +131,16 @@ void mouse(int button, int state, int x, int y)
   switch(button){
   case GLUT_LEFT_BUTTON:
     if (state == GLUT_DOWN){
-      /* ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é–‹å§‹ */
+      /* ’¥¢’¥Ë’¥á’¡¼’¥·’¥ç’¥ó’³«’»Ï */
       glutIdleFunc(idle);
     }else{
-      /* ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åœæ­¢ */
+      /* ’¥¢’¥Ë’¥á’¡¼’¥·’¥ç’¥ó’Ää’»ß */
       glutIdleFunc(NULL);
     }
     break;
   case GLUT_RIGHT_BUTTON:
     if (state == GLUT_DOWN){
-      /* ã‚³ãƒé€ã‚Š */
+      /* ’¥³’¥Ş’Á÷’¤ê */
       glutPostRedisplay();
     }
     break;
@@ -164,8 +164,8 @@ void keyboard(unsigned char key, int x, int y)
 
 void init(void)
 {
-  /*glClearColor(0.75, 0.6328, 0.7773, 1.0);  è–„è‘¡è„ */
-  glClearColor(0.0863, 0.0863, 0.0549, 1.0); /* æš—é»’è‰² */
+  /*glClearColor(0.75, 0.6328, 0.7773, 1.0);  ’Çö’Éò’Æº */
+  glClearColor(0.0863, 0.0863, 0.0549, 1.0); /* ’°Å’¹õ’¿§ */
 
   glEnable(GL_DEPTH_TEST);
 
